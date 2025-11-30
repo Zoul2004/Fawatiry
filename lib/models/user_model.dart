@@ -1,38 +1,44 @@
-// lib/models/user_model.dart
+// نموذج بيانات المستخدم
+class User {
+  final String userId; // معرف فريد للمستخدم
+  String personalName; // الاسم الشخصي
+  final String username; // اسم المستخدم (معرف مميز لا يتكرر)
+  String email; // البريد الإلكتروني (يتم التحقق منه)
+  String? company; // الشركة (اختياري)
+  String? jobTitle; // الوظيفة (اختياري)
+  String? phoneNumber; // رقم الهاتف (اختياري)
+  String? address; // السكن/العنوان (للملف الشخصي)
+  String? profileImageUrl; // الصورة الشخصية (اختياري)
+  bool isActivated; // حالة تفعيل الحساب (للتحقق من البريد)
 
-class UserModel {
-  final String userId;
-  final String personalName; // الاسم الشخصي
-  final String username; // معرف مميز لا يتكرر
-  final String email; // يتم التحقق منه
-  final String passwordHash; // يجب تخزين الـ Hash وليس كلمة السر مباشرة
-  final String? companyName; // الشركة (اختياري)
-  final String? jobTitle; // الوظيفة (اختياري)
-  final String? logoUrl; // شعار الشركة (اختياري - رابط الصورة)
-  final String? phoneNumber; // رقم الهاتف (اختياري)
-  final String? address; // السكن (للملف الشخصي)
-
-  UserModel({
+  User({
     required this.userId,
     required this.personalName,
     required this.username,
     required this.email,
-    required this.passwordHash,
-    this.companyName,
+    this.company,
     this.jobTitle,
-    this.logoUrl,
     this.phoneNumber,
     this.address,
+    this.profileImageUrl,
+    this.isActivated = false, // افتراضياً غير مفعّل عند التسجيل
   });
 
-  // دوال لتحويل البيانات إلى/من الخرائط (JSON/Database) - (يمكن إضافتها لاحقاً)
-  Map<String, dynamic> toJson() => {
-    'userId': userId,
-    'personalName': personalName,
-    'username': username,
-    'email': email,
-    'companyName': companyName,
-    'jobTitle': jobTitle,
-    // ... باقي الحقول
+  // دالة تحويل البيانات إلى خريطة (Map) لتخزينها
+  Map<String, dynamic> toMap() {
+    return {
+      'userId': userId,
+      'personalName': personalName,
+      'username': username,
+      'email': email,
+      'company': company,
+      'jobTitle': jobTitle,
+      'phoneNumber': phoneNumber,
+      'address': address,
+      'profileImageUrl': profileImageUrl,
+      'isActivated': isActivated,
+    };
+  }
+}
   };
 }
